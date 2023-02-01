@@ -2,6 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.btn-blue {
-  @apply text-8xl text-green-600 p-2;
+.hello-world {
+  @apply text-[10px] text-green-600 p-2;
 }
