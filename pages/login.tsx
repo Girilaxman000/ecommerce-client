@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import Link from "next/link";
 import {
   BeakerIcon,
@@ -7,6 +8,7 @@ import {
 import { useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import Image from "next/image";
 
 const Register = () => {
   const initialValues = {
@@ -138,6 +140,7 @@ const Register = () => {
               Forgot Password ?
             </Link>
           </div>
+
           <button
             type="submit"
             className="w-full p-2 bg-gradient-to-r from-[#fbc2eb] to-[#a6c1ee] rounded-3xl"
@@ -145,6 +148,27 @@ const Register = () => {
             Login
           </button>
         </form>
+        <p className="text-center mt-2">Or SignUp Using</p>
+        <div className="flex justify-center mt-2 gap-1">
+          <Image
+            src={"/assets/facebook.svg"}
+            alt="facebook"
+            width={25}
+            height={25}
+          />
+          <Image
+            src={"/assets/google.svg"}
+            alt="google"
+            width={25}
+            height={25}
+          />
+        </div>
+        <p className="mt-5">
+          Haven't registered yet?{" "}
+          <Link className="text-blue-600" href="/register">
+            Register
+          </Link>
+        </p>
       </div>
     </div>
   );
