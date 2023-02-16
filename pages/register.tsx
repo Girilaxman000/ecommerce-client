@@ -7,6 +7,7 @@ import {
 import { useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import axios from "axios";
 
 const Register = () => {
   const initialValues = {
@@ -34,7 +35,13 @@ const Register = () => {
     useFormik({
       initialValues: initialValues,
       onSubmit: (values) => {
-        console.log(values);
+        axios
+          .post("http://localhost:8000/sign_up", {
+            Email: values.username,
+            Password: values.password,
+          })
+          .then()
+          .catch();
       },
       validationSchema: validationSchema,
     });
