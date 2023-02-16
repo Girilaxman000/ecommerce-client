@@ -9,9 +9,6 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 
 const Register = () => {
-  const [isUsernameActive, setIsUsernameActive] = useState<boolean>(false);
-  const [isPasswordActive, setIsPasswordActive] = useState<boolean>(false);
-
   const initialValues = {
     username: "",
     password: "",
@@ -58,7 +55,9 @@ const Register = () => {
             <div className="relative">
               <UserCircleIcon
                 className={`h-6 w-6  ${
-                  isUsernameActive ? "text-blue-500" : ""
+                  errors.username && touched.username
+                    ? "text-red-500"
+                    : "text-blue-500"
                 } absolute top-[8px] left-1`}
               />
               <input
@@ -69,13 +68,18 @@ const Register = () => {
                 onChange={handleChange}
                 onBlur={(e) => {
                   handleBlur(e);
-                  setIsUsernameActive(false);
                 }}
-                onFocus={() => setIsUsernameActive(true)}
                 placeholder="Enter Name"
                 className={`w-full py-2 pr-2 pl-8 border-b-2 ${
                   errors.username && touched.username ? "border-red-500" : ""
-                } border-gray-300 focus:outline-none focus:border-indigo-500 `}
+                } border-gray-300 focus:outline-none focus:
+                focus:
+                    ${
+                      errors.username && touched.username
+                        ? "border-red-500"
+                        : "border-indigo-500 "
+                    }
+                `}
               />
               {errors.username && touched.username && (
                 <span className="text-red-500 text-sm mt-1">
@@ -94,7 +98,9 @@ const Register = () => {
             <div className="relative">
               <LockClosedIcon
                 className={`h-6 w-6  ${
-                  isPasswordActive ? "text-blue-500" : ""
+                  errors.password && touched.password
+                    ? "text-red-500"
+                    : "text-blue-500"
                 } absolute top-[8px] left-1`}
               />
               <input
@@ -105,9 +111,7 @@ const Register = () => {
                 name="password"
                 onBlur={(e) => {
                   handleBlur(e);
-                  setIsPasswordActive(false);
                 }}
-                onFocus={() => setIsPasswordActive(true)}
                 placeholder="Enter Name"
                 className={`w-full py-2  pr-2 border-b-2 pl-8 
                     ${
@@ -115,7 +119,14 @@ const Register = () => {
                         ? "border-red-500"
                         : ""
                     }
-                    border-gray-300 focus:outline-none  focus:border-indigo-500  `}
+                    border-gray-300 focus:outline-none  focus:
+                    ${
+                      errors.password && touched.password
+                        ? "border-red-500"
+                        : "border-indigo-500 "
+                    }
+                    
+                     `}
               />
               {errors.password && touched.password && (
                 <span className="text-red-500 text-sm mt-1">
@@ -123,7 +134,7 @@ const Register = () => {
                 </span>
               )}
             </div>
-            <Link href="/change-password" className="block text-right mt-2">
+            <Link href="/change-password" className=" text-right mt-6">
               Forgot Password ?
             </Link>
           </div>
@@ -131,7 +142,7 @@ const Register = () => {
             type="submit"
             className="w-full p-2 bg-gradient-to-r from-[#fbc2eb] to-[#a6c1ee] rounded-3xl"
           >
-            Register
+            Login
           </button>
         </form>
       </div>
