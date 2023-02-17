@@ -1,10 +1,5 @@
 import Link from "next/link";
-import {
-  BeakerIcon,
-  LockClosedIcon,
-  UserCircleIcon,
-} from "@heroicons/react/24/solid";
-import { useState } from "react";
+import { LockClosedIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import axios from "axios";
