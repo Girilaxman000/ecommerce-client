@@ -146,7 +146,7 @@ const Register = () => {
         </form>
         <p className="mt-5">
           Already registered ?{" "}
-          <Link className="text-blue-600" href="/">
+          <Link className="text-blue-600" href="/login">
             Login
           </Link>
         </p>
