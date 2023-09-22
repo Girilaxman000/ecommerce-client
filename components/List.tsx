@@ -2,8 +2,11 @@ import axios from "axios";
 import React from "react";
 import { useQuery } from "react-query";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 
 const List = () => {
+  const { data: session } = useSession();
+
   const fetchProducts = async () => {
     const response = await axios.get("http://localhost:8000/products");
     return response.data;
@@ -17,6 +20,7 @@ const List = () => {
   if (isError) {
     return <p>Error loading products</p>;
   }
+
   return (
     <div className="mt-10">
       <h1 className="text-3xl font-semibold mb-6 text-center">Product List</h1>

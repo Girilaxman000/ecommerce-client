@@ -5,44 +5,49 @@ import {
   LockClosedIcon,
   UserCircleIcon,
 } from "@heroicons/react/24/solid";
-import { useState } from "react";
+import { signIn } from "next-auth/react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import Image from "next/image";
 import { useMutation } from "react-query";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 
 export default function Login() {
-  const Login = (data: any) => {
-    return axios.post("http://localhost:3000/sign_in", data);
-  };
-  const { mutate: SignIn } = useMutation(Login);
   const initialValues = {
     username: "",
     password: "",
   };
 
+  const session: any = useSession();
   const validationSchema = Yup.object().shape({
-    username: Yup.string()
-      .required()
-      .matches(
-        /^[a-zA-Z0-9]+$/, //match nahuda samma error falirakhxa
-        "Username should only contain letters and numbers"
-      ),
+    username: Yup.string().required(),
     password: Yup.string()
       .required()
-      .min(8, "Password should be at least 8 characters long")
-      .matches(
-        /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/,
-        "Password should contain at least one capital letter, one special character, and one number"
-      ),
+      .min(8, "Password should be at least 8 characters long"),
   });
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues: initialValues,
-      onSubmit: (values) => {
-        SignIn(values);
+      onSubmit: async (values) => {
+        const { username, password } = values;
+        const res = await signIn("credentials", {
+          username,
+          password,
+          redirect: false,
+        });
+        // Check if the response has an error property
+        console.log(res);
+        if (res && res.error) {
+          // Handle the error here
+          console.error("Sign-in error:", res.error);
+        } else {
+          // No error, continue with success logic
+          // For example, you can redirect the user
+          window.location.href = "/";
+          // console.log("No error, not redirecting.");
+        }
       },
       validationSchema: validationSchema,
     });

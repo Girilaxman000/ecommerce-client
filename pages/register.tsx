@@ -11,19 +11,11 @@ const Register = () => {
   };
 
   const validationSchema = Yup.object().shape({
-    username: Yup.string()
-      .required()
-      .matches(
-        /^[a-zA-Z0-9]+$/, //match nahuda samma error falirakhxa
-        "Username should only contain letters and numbers"
-      ),
+    username: Yup.string().required(),
+
     password: Yup.string()
       .required()
-      .min(8, "Password should be at least 8 characters long")
-      .matches(
-        /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/,
-        "Password should contain at least one capital letter, one special character, and one number"
-      ),
+      .min(8, "Password should be at least 8 characters long"),
   });
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
@@ -31,9 +23,9 @@ const Register = () => {
       initialValues: initialValues,
       onSubmit: (values) => {
         axios
-          .post("http://localhost:8000/sign_up", {
-            Email: values.username,
-            Password: values.password,
+          .post("http://localhost:8000/signup", {
+            email: values.username,
+            password: values.password,
           })
           .then()
           .catch();
